@@ -1,0 +1,127 @@
+/*Estilos reset*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #ff6b00;
+  --primary-dark: #e66000;
+  --background-light: #f6f7f8;
+  --text-primary-light: #101922;
+  --background-dark: #101922;
+  --text-primary-dark: #f6f7f8;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-primary-light);
+  background-color: var(--background-light);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text-primary-dark);
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/***** Mobile Firtst Styles *****/
+
+/*Header*/
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ff6b00;
+
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+
+    svg {
+      color: var(--primary);
+    }
+
+    span {
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding-top: 0.2rem;
+    }
+  }
+
+  .menu-toggle {
+    background-color: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.2rem;
+    color: var(--primary);
+    background-color: inherit;
+    transition: all 0.2s;
+
+    &:hover,
+    &:focus {
+      background-color: #FFE9DA;
+      border-radius: 0.15rem;
+    }
+
+    .menu-icon {
+      padding-top: 0.2rem;
+    }
+
+    .close-icon {
+      display: none;
+    }
+  }
+
+  nav {
+    display: none;
+  }
+}
+
+
+/*Dark Theme Button*/
+.theme-toggle {
+  background-color: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  color: var(--primary);
+  background-color: inherit;
+
+  .dark-theme-icon {
+    display: none;
+  }
+}
