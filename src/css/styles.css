@@ -59,12 +59,17 @@ a {
 /*Header*/
 
 header {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
   background-color: #ffffff;
-  border-bottom: 1px solid #ff6b00;
+  border-top: 1px solid #ff6b00;
 
   .header-logo {
     display: flex;
@@ -88,12 +93,14 @@ header {
     cursor: pointer;
     padding: 0.2rem;
     color: var(--primary);
+    position: relative;
     background-color: inherit;
     transition: all 0.2s;
+    z-index: 1001;
 
     &:hover,
     &:focus {
-      background-color: #FFE9DA;
+      background-color: #ffe9da;
       border-radius: 0.15rem;
     }
 
@@ -104,10 +111,68 @@ header {
     .close-icon {
       display: none;
     }
+
+    &[aria-expanded="true"] {
+      .menu-icon {
+        display: none;
+      }
+
+      .close-icon {
+        display: block;
+      }
+    }
   }
 
   nav {
-    display: none;
+    position: fixed;
+    bottom: 52px;
+    right: -100%;
+    width: 100%;
+    height: 50vh;
+    background-color: #ffe9da;
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      align-content: center;
+      padding: 4rem 1rem;
+      gap: 1rem;
+
+      a {
+        width: 100%;
+        padding: 0.75rem 0;
+        font-size: 1.1rem;
+        border-bottom: 1px solid var(--primary-dark);
+      }
+    }
+
+    &.is-open {
+      right: 0;
+    }
+
+    &::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    &.menu-open::after {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+    }
   }
 }
 
