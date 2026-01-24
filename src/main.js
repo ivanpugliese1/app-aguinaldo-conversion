@@ -1,4 +1,7 @@
-// Funcionalidad del menu toggle
+import { renderizarPrecioDolar } from "./components/precioDolar";
+
+
+// ********************** MENU TOGGLE ********************** //
 
 const header = document.querySelector('header'); // Traigo el header completo.
 const menuToggle = document.querySelector('.menu-toggle'); // Traigo el botón que abre y cierra el menu de navegación.
@@ -53,3 +56,32 @@ document.addEventListener("keydown", (e) => {
     toggleMenu();
   }
 });
+
+
+// ********************** MENU TOGGLE ********************** //
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.querySelector('.contenedor-general').innerHTML = `
+  <div class="container">
+
+    <section id="seccion-cotizaciones">
+      <h2>📊 Cotizaciones del Dólar en Vivo</h2>
+      <div id="cotizaciones-container"></div>
+    </section>
+
+  </div>
+`;
+
+// Inicializar componentes
+renderizarPrecioDolar('cotizaciones-container');
