@@ -5,8 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>app-aguinaldo-conversion</title>
-  <link rel="stylesheet" href="./src/css/styles.css">
-  <script type="module" src="/src/main.js" defer></script>
+  <link rel="stylesheet" href="../css/styles.css">
+  <script type="module" src="../main.js" defer></script>
 </head>
 
 <body>
@@ -68,8 +68,8 @@
 
     <nav>
       <ul>
-        <li><a href="./index.html">Inicio</a></li>
-        <li><a href="src/pages/dolar.html">Dolar</a></li>
+        <li><a href="../../index.html">Inicio</a></li>
+        <li><a href="">Dolar</a></li>
         <li><a href="">Sueldo</a></li>
         <li><a href="">Aguinaldo</a></li>
         <li><a href="">Inversiones</a></li>
@@ -77,18 +77,28 @@
     </nav>
   </header>
 
-  <main>
+  <main class="page">
 
-    <section class="seccion-bienvenida">
-      <h1>¡Bienvenido a Dolar&SAC!</h1>
-      <p>¿Dólar, Sueldo, Inversiones? en Dolar&SAC calculá tu aguinaldo y/o sueldo neto en segundos, consulta las
-        cotizaciones actualizadas y mantenete al día.</p>
+
+    <section class="seccion-titulo">
+      <h1>Conversor de Monedas y Dólar en Argentina</h1>
+      <p>Consultá la cotización del dolar en tiempo real para calcular valores, comparar cotizaciones y tomar mejores
+        decisiones.</p>
+      <p>Una herramienta práctica, clara y actualizada, pensada para tu uso diario.</p>
     </section>
+
+    <section class="seccion-conversion">
+      <form id="formulario-conversion" class="formulario-conversion"></form>
+    </section>
+
+
+    <section class="seccion-cotizaciones"></section>
+
 
   </main>
 
   <footer>
-
+    <small>Desarrollado por @Ivan Pugliese</small>
   </footer>
 </body>
 

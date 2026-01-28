@@ -15,7 +15,7 @@
 }
 
 body {
-  font-family: system-ui, sans-serif;
+  font-family: system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 16px;
   line-height: 1.6;
   color: var(--text-primary-light);
@@ -53,15 +53,20 @@ a {
   color: inherit;
 }
 
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
 
 /***** Mobile Firtst Styles *****/
 
 /*Header*/
 
 header {
-  position: fixed;
+  position: sticky;
   width: 100%;
-  bottom: 0;
+  top: 0;
   left: 0;
   z-index: 999;
   display: flex;
@@ -69,7 +74,7 @@ header {
   align-items: center;
   padding: 0.5rem;
   background-color: #ffffff;
-  border-top: 1px solid #ff6b00;
+  border-bottom: 1px solid #ff6b00;
 
   .header-logo {
     display: flex;
@@ -125,7 +130,7 @@ header {
 
   nav {
     position: fixed;
-    bottom: 52px;
+    top: 51px;
     right: -100%;
     width: 100%;
     height: 50vh;
@@ -176,9 +181,6 @@ header {
   }
 }
 
-/* Welcome Section */
-
-
 /*Dark Theme Button*/
 .theme-toggle {
   background-color: none;
@@ -193,71 +195,274 @@ header {
   }
 }
 
-
-
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  background: white;
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-/* Cotizaciones */
-.cotizaciones-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-.tarjeta-dolar {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.tarjeta-dolar:hover {
-  transform: translateY(-5px);
-}
-
-.tarjeta-dolar h3 {
-  margin: 0 0 1rem 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.valores {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.valor-compra,
-.valor-venta {
+/* Sección de bienvenida */
+.seccion-bienvenida {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
 }
 
-.label {
-  font-size: 0.85rem;
-  opacity: 0.9;
-  margin-bottom: 0.25rem;
-}
-
-.precio {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.ultima-actualizacion {
+.seccion-titulo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  color: #666;
+  margin-bottom: 2rem;
+
+  h1 {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/*Formulario de conversión*/
+.seccion-conversion {
+  margin-bottom: 2rem;
+
+  .formulario-conversion {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+
+    .form-title {
+      display: flex;
+      flex-direction: column;
+
+      small {
+        font-size: 0.85rem;
+        color: #555;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        font-family: inherit;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+
+        &:focus {
+          border: 2px solid var(--primary);
+          outline: var(--primary);
+        }
+      }
+
+      label {
+        color: var(--text-primary-light);
+        font-weight: bold;
+        margin-bottom: 0.2rem;
+      }
+    }
+
+    .custom-select-container {
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+
+      /* El botón que se ve */
+      .select-selected {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 35px;
+        font-size: 1rem;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        padding: 0.5rem;
+        border-radius: 8px;
+        transition: border-color 0.3s ease;
+
+        /* Dibujamos la flecha con CSS puro */
+        .arrow {
+          width: 0;
+          height: 0;
+          border-left: 6px solid transparent;
+          border-right: 6px solid transparent;
+          border-top: 7px solid #666;
+          margin-left: 10px;
+        }
+      }
+
+      /* La lista de opciones (El dropdown) */
+      .select-items {
+        font-size: 1rem;
+        position: absolute;
+        background-color: white;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 99;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+        /* ESTO LOGRA LA TRANSICIÓN SUAVE */
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: auto;
+
+        div {
+          padding: 0.2rem;
+          transition: color 0.2s;
+        }
+
+        div:hover {
+          color: #e66000;
+        }
+      }
+
+      /* Estado oculto */
+      .select-hide {
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+        display: block !important;
+        /* Mantenemos display para que la transición funcione */
+      }
+    }
+
+    .conversor-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      button {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+        border: none;
+        background-color: inherit;
+        color: var(--primary);
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+
+    .resultado-exitoso {
+      display: flex;
+      flex-direction: column;
+
+      .conversion-visual {
+        display: flex;
+        gap: 0.5rem;
+        background-color: #ffc083;
+        color: whitesmoke;
+        border-radius: 0.50rem;
+        padding: 0.1rem 0.3rem;
+      }
+
+      .detalles-conversion {
+        display: flex;
+        gap: 3rem;
+      }
+    }
+  }
+}
+
+.seccion-cotizaciones {
+  margin-bottom: 2rem;
+
+  .cotizaciones-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .cotizaciones-cabecera {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      span {
+        background-color: #ffe9da;
+        border-radius: 1rem;
+        padding: 0.2rem 0.75rem;
+        color: var(--primary);
+        font-weight: bold;
+      }
+    }
+
+    .cotizaciones-dolar {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .tarjeta-dolar {
+        display: flex;
+        flex-direction: column;
+        background-color: #ffe9da;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        padding: 1rem;
+
+        h3 {
+          border-bottom: 1px solid var(--primary-dark);
+          margin-bottom: 1rem;
+        }
+
+        .valores {
+          display: flex;
+          justify-content: space-between;
+
+          .valor-compra,
+          .valor-venta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .precio {
+            font-size: 1.050rem;
+            color: var(--primary);
+            font-weight: bold;
+          }
+
+          .texto-compra,
+          .texto-venta {
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+.variacion {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   font-size: 0.9rem;
-  margin-top: 1rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+.variacion-positiva {
+  color: #2ecc71;
+  background: rgba(46, 204, 113, 0.15);
+}
+
+.variacion-negativa {
+  color: #e74c3c;
+  background: rgba(231, 76, 60, 0.15);
+}
+
+.variacion-monto {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  margin-top: 0.15rem;
+}
+
+
+footer {
+  padding: 2rem;
+  text-align: center;
+  background-color: #ffe9da;
 }

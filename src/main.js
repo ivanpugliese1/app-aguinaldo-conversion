@@ -1,8 +1,8 @@
-import { renderizarPrecioDolar } from "./components/precioDolar";
+import { renderizarCotizaciones } from "./components/cotizacionDolar";
+import { renderizarConversor } from "./components/conversorMoneda";
 
 
 // ********************** MENU TOGGLE ********************** //
-
 const header = document.querySelector('header'); // Traigo el header completo.
 const menuToggle = document.querySelector('.menu-toggle'); // Traigo el botón que abre y cierra el menu de navegación.
 const menuNav = document.querySelector('nav'); // Traigo el elemento de navegación con sus respectivos links.
@@ -58,30 +58,14 @@ document.addEventListener("keydown", (e) => {
 });
 
 
-// ********************** MENU TOGGLE ********************** //
-
-
-
-
-
-
-
-
-
-
-
-
-
-document.querySelector('.contenedor-general').innerHTML = `
-  <div class="container">
-
-    <section id="seccion-cotizaciones">
-      <h2>📊 Cotizaciones del Dólar en Vivo</h2>
-      <div id="cotizaciones-container"></div>
-    </section>
-
-  </div>
+// ********************** SECCION RENDERIZADO - PRECIO DOLAR ********************** //
+document.querySelector('.seccion-cotizaciones').innerHTML = `
+      <article id="cotizaciones-container" class="cotizaciones-container"></article>
 `;
 
+// Inicializar componente
+renderizarCotizaciones('cotizaciones-container');
+
+
 // Inicializar componentes
-renderizarPrecioDolar('cotizaciones-container');
+renderizarConversor('formulario-conversion');  // ← Inicializar conversor
