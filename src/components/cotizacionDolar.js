@@ -46,7 +46,10 @@ export async function renderizarCotizaciones(containerId) {
     container.innerHTML = `
       <div class="cotizaciones-cabecera">
         <h2>Cotizaciones USD</h2>
-        <span>⬇ EN VIVO</span>
+        <div>
+          <span class="dot"></span>
+          <span>EN VIVO</span>
+        </div>
       </div>
       
       <div class="cotizaciones-dolar">
@@ -65,6 +68,9 @@ export async function renderizarCotizaciones(containerId) {
   }
 }
 
+function enVivoHtml() {
+
+}
 
 function crearTarjetaHtml(cotizacion) {
   const nombreSimplificado = cotizacion.nombre === "Contado con liquidación"
