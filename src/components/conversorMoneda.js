@@ -1,4 +1,4 @@
-import { obtenerCotizacionesActuales, conversionPesosADolares, conversionDolaresAPesos } from "../services/dolarApi";
+import { obtenerCotizacionesActuales, conversionPesosADolares, conversionDolaresAPesos } from "../services/dolarApi.js";
 
 // Generamos esta variable global para almacenar en memoria los datos que nos brinda la API y no tener que hacer múltiples llamadas cada vez que el usuario interactúa con el conversor.
 let cotizacionesEnMemoria = [];
@@ -89,14 +89,35 @@ export async function renderizarConversor(containerId) {
     const itemsContainer = customSelect.querySelector('.select-items');
     const arrow = customSelect.querySelector('.arrow');
 
+    // ======== CUSTOM SELECT - ABRIR/CERRAR ========
+    let selectAbierto = false;
+
+    function toggleSelect(e) {
+      if (e) e.stopPropagation();
+      selectAbierto = !selectAbierto;
+      itemsContainer.classList.toggle('select-hide');
+      arrow.classList.toggle('arrow-rotate');
+    }
+
     // Creamos el evento para mostrar y desaparecer al hacer clic en el "input"
     selectedDisplay.addEventListener('click', () => {
       itemsContainer.classList.toggle('select-hide');
     });
 
+    // Touch en el select (móvil)
+    selectedDisplay.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleSelect();
+    }, { passive: false });
+
     // Al elegir una opción visual
     itemsContainer.querySelectorAll('div').forEach(item => {
-      item.addEventListener('click', (e) => {
+
+      function seleccionarOpcion(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
         const value = e.target.getAttribute('data-value');
         const text = e.target.innerText;
 
@@ -112,14 +133,28 @@ export async function renderizarConversor(containerId) {
 
         // 4. DISPARAMOS TU LÓGICA ORIGINAL
         selectDolar.dispatchEvent(new Event('change'));
-      });
+      }
+
+      // Click
+      item.addEventListener('click', seleccionarOpcion);
+
+      // Touch (móvil)
+      item.addEventListener('touchend', seleccionarOpcion, { passive: false });
     });
 
-    // Cerrar si hacen clic afuera
-    document.addEventListener('click', (e) => {
-      if (!customSelect.contains(e.target)) itemsContainer.classList.add('select-hide');
-      arrow.classList.remove('arrow-rotate');
-    });
+
+
+    // ======== CERRAR SELECT AL HACER CLICK/TOUCH FUERA ========
+    function cerrarSelect(e) {
+      if (!customSelect.contains(e.target) && selectAbierto) {
+        selectAbierto = false;
+        itemsContainer.classList.add('select-hide');
+        arrow.classList.remove('arrow-rotate');
+      }
+    }
+
+    document.addEventListener('click', cerrarSelect);
+    document.addEventListener('touchend', cerrarSelect);
 
     // Con el evento input, escuchamos los cambios en el campo de monto en tiempo real.
     inputMonto.addEventListener('input', (e) => {
@@ -130,19 +165,25 @@ export async function renderizarConversor(containerId) {
     // Escuchar cambio de tipo de dólar
     selectDolar.addEventListener('change', realizarConversion);
 
-    // Funcionalidad de Invertir (Swap)
-    btnInvertir.addEventListener('click', (e) => {
+    // ======== BOTÓN INVERTIR ========
+    function invertirMonedas(e) {
       e.preventDefault();
+
       const temp = monedaOrigen.value;
       monedaOrigen.value = monedaDestino.value;
       monedaDestino.value = temp;
 
-      // Actualizar etiquetas visuales
-      document.getElementById('label-origen').innerText = `${monedaOrigen.value}`;
-      document.getElementById('label-destino').innerText = `${monedaDestino.value}`;
+      document.getElementById('label-origen').innerText = monedaOrigen.value;
+      document.getElementById('label-destino').innerText = monedaDestino.value;
 
       realizarConversion();
-    });
+    }
+
+    btnInvertir.addEventListener('click', invertirMonedas);
+    btnInvertir.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      invertirMonedas(e);
+    }, { passive: false });
   }
 
   // Buscamos que los puntos de miles se vean automaticamente mientras el usuario escribe.

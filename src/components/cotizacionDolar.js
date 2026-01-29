@@ -1,4 +1,4 @@
-import { obtenerCotizacionesActuales, calcularVariacionPorcentual, guardarCotizacionesEnLocalStorage, obtenerCotizacionesDesdeLocalStorage } from "../services/dolarApi";
+import { obtenerCotizacionesActuales, calcularVariacionPorcentual, guardarCotizacionesEnLocalStorage, obtenerCotizacionesDesdeLocalStorage } from "../services/dolarApi.js";
 
 
 export async function renderizarCotizaciones(containerId) {
@@ -47,7 +47,7 @@ export async function renderizarCotizaciones(containerId) {
       <div class="cotizaciones-cabecera">
         <h2>Cotizaciones USD</h2>
         <div>
-          <span class="dot"></span>
+          <span class="live-dot"></span>
           <span>EN VIVO</span>
         </div>
       </div>

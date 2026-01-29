@@ -70,9 +70,14 @@ document.querySelector('.seccion-cotizaciones').innerHTML = `
       <article id="cotizaciones-container" class="cotizaciones-container"></article>
 `;
 
-// Inicializar componente
-renderizarCotizaciones('cotizaciones-container');
-
 
 // Inicializar componentes
 renderizarConversor('formulario-conversion');  // ← Inicializar conversor
+// Inicializar componente
+// Pequeño delay para asegurar que el DOM se actualizó
+setTimeout(() => {
+  renderizarCotizaciones('cotizaciones-container');
+}, 0); // Incluso con 0ms funciona porque pasa al siguiente ciclo del event loop
+
+
+
