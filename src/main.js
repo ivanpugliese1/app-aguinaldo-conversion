@@ -1,5 +1,5 @@
-import { renderizarCotizaciones } from "./components/cotizacionDolar";
-import { renderizarConversor } from "./components/conversorMoneda";
+import { renderizarCotizaciones } from "./components/cotizacionDolar.js";
+import { renderizarConversor } from "./components/conversorMoneda.js";
 
 
 // ********************** MENU TOGGLE ********************** //
@@ -24,7 +24,14 @@ function toggleMenu() {
 }
 
 if (menuToggle) {
-  menuToggle.addEventListener('click', toggleMenu); // Escucho el evento click en el botón del menú.
+  // Click para desktop
+  menuToggle.addEventListener('click', toggleMenu);
+
+  // Touch para móvil - CRÍTICO
+  menuToggle.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    toggleMenu();
+  }, { passive: false });
 }
 
 if (menuNav) {
