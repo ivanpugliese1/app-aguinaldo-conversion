@@ -28,6 +28,9 @@ body {
   line-height: 1.6;
   color: var(--text-primary-light);
   background-color: var(--background-light);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 img {
@@ -61,22 +64,50 @@ a {
   color: inherit;
 }
 
+strong {
+  color: var(--primary);
+}
+
 .page {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2rem;
+  flex: 1;
 }
 
 /***** Mobile Firtst Styles *****/
 
-/*Header*/
 
+.menu-overlay {
+  content: "";
+  position: fixed;
+  top: 51px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 51px);
+  /* Altura completa menos el header */
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 999;
+  /* Debe estar por encima del contenido pero debajo del nav */
+  pointer-events: none;
+
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+}
+
+/*Header*/
 header {
   position: sticky;
   width: 100%;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -142,9 +173,10 @@ header {
     right: -100%;
     width: 100%;
     height: 50vh;
-    background-color: #ffe9da;
+    background-color: #ffffff;
+    border-radius: 0 0 0 0.5rem;
     transition: right 0.3s ease-in-out;
-    z-index: 1000;
+    z-index: 1001;
 
     ul {
       display: flex;
@@ -159,32 +191,16 @@ header {
         padding: 0.75rem 0;
         font-size: 1.1rem;
         border-bottom: 1px solid var(--primary-dark);
+
+        &:hover {
+          color: var(--primary);
+        }
       }
+
     }
 
     &.is-open {
-      right: 0;
-    }
-
-    &::after {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s, visibility 0.3s;
-      z-index: 999;
-      pointer-events: none;
-    }
-
-    &.menu-open::after {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: all;
+      right: -50%;
     }
   }
 }
@@ -209,6 +225,7 @@ header {
   flex-direction: column;
   justify-content: center;
   padding: 2rem;
+
 }
 
 .seccion-titulo {
@@ -219,8 +236,14 @@ header {
   text-align: center;
   margin-bottom: 2rem;
 
+
   h1 {
     margin-bottom: 0.5rem;
+  }
+
+  img {
+    width: 250px;
+    margin-top: 2rem;
   }
 }
 
@@ -247,110 +270,116 @@ header {
       }
     }
 
-    .form-group {
+    .form-groups-container {
       display: flex;
       flex-direction: column;
-
-      input {
-        font-family: inherit;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        border: 1px solid #ccc;
-
-        &:focus {
-          border: 2px solid var(--primary);
-          outline: var(--primary);
-        }
-      }
-
-      label {
-        color: var(--text-primary-light);
-        font-weight: bold;
-        margin-bottom: 0.2rem;
-      }
-    }
-
-    .custom-select-container {
-      position: relative;
-      cursor: pointer;
-      user-select: none;
-
-      /* El botón que se ve */
-      .select-selected {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 35px;
-        font-size: 1rem;
-        background-color: #f8f9fa;
-        border: 1px solid #ddd;
-        padding: 0.5rem;
-        border-radius: 8px;
-        transition: border-color 0.3s ease;
-
-        /* Dibujamos la flecha con CSS puro */
-        .arrow {
-          width: 0;
-          height: 0;
-          border-left: 6px solid transparent;
-          border-right: 6px solid transparent;
-          border-top: 7px solid #666;
-          margin-left: 10px;
-        }
-      }
-
-      /* La lista de opciones (El dropdown) */
-      .select-items {
-        font-size: 1rem;
-        position: absolute;
-        background-color: white;
-        top: 100%;
-        left: 0;
-        right: 0;
-        z-index: 99;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-
-        /* ESTO LOGRA LA TRANSICIÓN SUAVE */
-        opacity: 1;
-        transform: translateY(0);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        pointer-events: auto;
-
-        div {
-          padding: 0.2rem;
-          transition: color 0.2s;
-        }
-
-        div:hover {
-          color: var(--primary);
-        }
-      }
-
-      /* Estado oculto */
-      .select-hide {
-        opacity: 0;
-        transform: translateY(-10px);
-        pointer-events: none;
-        display: block !important;
-        /* Mantenemos display para que la transición funcione */
-      }
-    }
-
-    .conversor-wrapper {
-      display: flex;
-      align-items: center;
       gap: 1rem;
 
-      button {
-        font-size: 1.2rem;
-        margin-bottom: 0.3rem;
-        border: none;
-        background-color: inherit;
-        color: var(--primary);
-        font-weight: bold;
+      .form-group {
+        display: flex;
+        flex-direction: column;
+
+        input {
+          font-family: inherit;
+          padding: 0.5rem;
+          border-radius: 0.5rem;
+          border: 1px solid #ccc;
+
+          &:focus {
+            border: 2px solid var(--primary);
+            outline: var(--primary);
+          }
+        }
+
+        label {
+          color: var(--text-primary-light);
+          font-weight: bold;
+          margin-bottom: 0.2rem;
+        }
+      }
+
+      .custom-select-container {
+        position: relative;
         cursor: pointer;
+        user-select: none;
+
+        /* El botón que se ve */
+        .select-selected {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 35px;
+          font-size: 1rem;
+          background-color: #f8f9fa;
+          border: 1px solid #ddd;
+          padding: 0.5rem;
+          border-radius: 8px;
+          transition: border-color 0.3s ease;
+
+          /* Dibujamos la flecha con CSS puro */
+          .arrow {
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 7px solid #666;
+            margin-left: 10px;
+          }
+        }
+
+        /* La lista de opciones (El dropdown) */
+        .select-items {
+          font-size: 1rem;
+          position: absolute;
+          background-color: white;
+          top: 100%;
+          left: 0;
+          right: 0;
+          z-index: 99;
+          padding: 0.5rem;
+          border-radius: 0.5rem;
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+          /* ESTO LOGRA LA TRANSICIÓN SUAVE */
+          opacity: 1;
+          transform: translateY(0);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          pointer-events: auto;
+
+          div {
+            padding: 0.2rem;
+            transition: color 0.2s;
+          }
+
+          div:hover {
+            color: var(--primary);
+          }
+        }
+
+        /* Estado oculto */
+        .select-hide {
+          opacity: 0;
+          transform: translateY(-10px);
+          pointer-events: none;
+          display: block !important;
+          /* Mantenemos display para que la transición funcione */
+        }
+      }
+
+      .conversor-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        button {
+          font-size: 1.2rem;
+          margin-bottom: 0.3rem;
+          border: none;
+          background-color: inherit;
+          color: var(--primary);
+          font-weight: bold;
+          cursor: pointer;
+        }
       }
     }
 
@@ -369,14 +398,20 @@ header {
       }
 
       .detalles-conversion {
+        margin-top: 1rem;
+        margin-left: 0.3rem;
         display: flex;
-        gap: 3rem;
+        gap: 0.3rem;
+        color: var(--primary);
       }
     }
   }
 }
 
 .seccion-cotizaciones {
+  background-color: var(--secondary);
+  padding: 1rem;
+  border-radius: 0.5rem;
   margin-bottom: 2rem;
 
   .cotizaciones-container {
@@ -393,20 +428,31 @@ header {
         display: flex;
         align-items: center;
         gap: 0.3rem;
-      }
 
-      span {
-        background-color: rgba(46, 204, 113, 0.15);
-        border-radius: 1rem;
-        padding: 0.2rem 0.75rem;
-        color: var(--primary);
-        font-weight: bold;
+        .live-dot {
+          display: inline-block;
+          width: 1rem;
+          height: 1.5rem;
+          flex-shrink: 0;
+          background: var(--primary);
+          border-radius: 100%;
+          position: relative;
+          animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        span {
+          background-color: #ffffff;
+          border-radius: 1rem;
+          padding: 0.2rem 0.75rem;
+          color: var(--primary);
+          font-weight: bold;
+        }
       }
     }
 
     .cotizaciones-dolar {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1rem;
 
       .tarjeta-dolar {
@@ -445,40 +491,41 @@ header {
             font-size: 0.9rem;
             color: var(--text-muted);
           }
+
+          .variacion {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+          }
+
+          .variacion-positiva {
+            color: var(--primary);
+            background: rgba(46, 204, 113, 0.15);
+            border-radius: 0.5rem;
+            padding: 0 0.5rem;
+          }
+
+          .variacion-negativa {
+            color: #e74c3c;
+            background: rgba(231, 76, 60, 0.15);
+            border-radius: 0.5rem;
+            padding: 0 0.5rem;
+          }
+
+          .variacion-monto {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            margin-top: 0.15rem;
+          }
         }
       }
     }
   }
 }
-
-.variacion {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-}
-
-.variacion-positiva {
-  color: var(--primary);
-  background: rgba(46, 204, 113, 0.15);
-  border-radius: 0.5rem;
-  padding: 0 0.5rem;
-}
-
-.variacion-negativa {
-  color: #e74c3c;
-  background: rgba(231, 76, 60, 0.15);
-}
-
-.variacion-monto {
-  font-size: 0.75rem;
-  opacity: 0.9;
-  margin-top: 0.15rem;
-}
-
 
 footer {
   padding: 2rem;
@@ -487,37 +534,101 @@ footer {
 }
 
 
-.live-dot {
-  display: inline-block;
-  height: 1.5rem;
-  background: var(--primary);
-  border-radius: 100%;
-  position: relative;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-.live-dot::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: var(--primary);
-  border-radius: 100%;
-  top: 0;
-  left: 0;
-  animation: ripple 2s ease-out infinite;
-}
-
+/*Animaciones*/
 @keyframes pulse {
 
   0%,
   100% {
-    transform: scale(1);
+    transform: scale(0.8);
     opacity: 1;
   }
 
   50% {
-    transform: scale(1.1);
+    transform: scale(0.9);
     opacity: 0.8;
+  }
+}
+
+
+/*Tablet y Desktop*/
+
+@media (min-width: 768px) {
+
+  header {
+    .menu-toggle {
+      display: none;
+    }
+
+    nav {
+      position: static;
+      height: auto;
+
+      ul {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        gap: 2rem;
+
+        a {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+
+    .seccion-titulo {
+      img {
+        width: 300px;
+      }
+    }
+
+    .seccion-conversion {
+      .formulario-conversion {
+
+        .form-title {
+          display: none;
+        }
+
+        .form-groups-container {
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          gap: 2rem;
+
+          .form-group {
+            input {
+              width: 300px;
+            }
+          }
+
+          .conversor-wrapper {
+            margin-top: 1.5rem;
+          }
+
+          .select-selected {
+            width: 300px;
+          }
+        }
+      }
+
+      .resultado-conversion {
+
+        text-align: center;
+
+        .resultado-exitoso {
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          gap: 2rem;
+
+          .detalles-conversion {
+            margin-top: 0;
+          }
+        }
+      }
+    }
   }
 }

@@ -6,6 +6,9 @@ import { renderizarConversor } from "./components/conversorMoneda.js";
 const header = document.querySelector('header'); // Traigo el header completo.
 const menuToggle = document.querySelector('.menu-toggle'); // Traigo el botón que abre y cierra el menu de navegación.
 const menuNav = document.querySelector('nav'); // Traigo el elemento de navegación con sus respectivos links.
+const overlay = document.createElement('div');
+overlay.className = 'menu-overlay';
+document.body.appendChild(overlay);
 
 function toggleMenu() {
   const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true'; // Valor del atributo aria-expanded si el menu esta abierto.
@@ -14,7 +17,8 @@ function toggleMenu() {
 
   menuNav.classList.toggle('is-open'); // Alterno la clase is-open en el elemento de navegación.
 
-  header.classList.toggle('menu-open'); // Alterno la clase menu-open en el header.
+  overlay.classList.toggle('is-active');
+
 
   if (!isExpanded) {
     document.body.style.overflow = 'hidden'; // Desactivo el scroll del body cuando el menu está abierto.
@@ -34,6 +38,8 @@ if (menuToggle) {
   }, { passive: false });
 }
 
+
+
 if (menuNav) {
   const navLinks = menuNav.querySelectorAll('a'); // Traigo todos los links dentro del nav.
   navLinks.forEach(link => {
@@ -44,6 +50,14 @@ if (menuNav) {
     })
   })
 }
+
+// Cerrar al hacer click en el overlay
+overlay.addEventListener('click', () => {
+  menuNav.classList.remove('is-open');
+  overlay.classList.remove('is-active');
+  menuToggle.setAttribute('aria-expanded', 'false');
+});
+
 
 // Cierro el menú al hacer click fuera de él.
 document.addEventListener("click", (e) => {

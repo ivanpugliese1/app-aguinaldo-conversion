@@ -68,10 +68,6 @@ export async function renderizarCotizaciones(containerId) {
   }
 }
 
-function enVivoHtml() {
-
-}
-
 function crearTarjetaHtml(cotizacion) {
   const nombreSimplificado = cotizacion.nombre === "Contado con liquidación"
     ? "CCL"

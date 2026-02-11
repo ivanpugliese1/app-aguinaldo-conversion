@@ -23,47 +23,48 @@ export async function renderizarConversor(containerId) {
       <small>Conversión actualizada en tiempo real.</small>
     </div>
 
-    <div class="form-group">
-      <label for="tipo-dolar">Seleccioná el tipo de Dólar :</label>
-      <div class="custom-select-container" id="custom-select">
-        <div class="select-selected">
-          <span id="selected-text">Dólar Oficial</span>
-          <span class="arrow"></span>
-        </div>
-        <div class="select-items select-hide">
-          ${cotizacionesEnMemoria.map(cotizacion => `
-            <div data-value="${cotizacion.casa}">
-              Dólar ${cotizacion.nombre === "Contado con liquidación" ? "CCL" : cotizacion.nombre}
-            </div>
-          `).join('')}
-        </div>
-      </div>
-      <select id="tipo-dolar" style="display:none">
-          ${generadorOpcionesHtml()}
-      </select>
-    </div>
-
-    <div class="conversor-wrapper">
+    <div class="form-groups-container">
       <div class="form-group">
-          <label id="label-origen"><span>ARS</span></label>
-          <input type="hidden" id="moneda-origen" value="ARS">
+        <label for="tipo-dolar">Seleccioná el tipo de Dólar :</label>
+        <div class="custom-select-container" id="custom-select">
+          <div class="select-selected">
+            <span id="selected-text">Dólar Oficial</span>
+            <span class="arrow"></span>
+          </div>
+          <div class="select-items select-hide">
+            ${cotizacionesEnMemoria.map(cotizacion => `
+              <div data-value="${cotizacion.casa}">
+                Dólar ${cotizacion.nombre === "Contado con liquidación" ? "CCL" : cotizacion.nombre}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <select id="tipo-dolar" style="display:none">
+            ${generadorOpcionesHtml()}
+        </select>
       </div>
-      
-      <button id="btn-invertir" class="btn-swap" title="Invertir monedas">
-        ⇄
-      </button>
+
+      <div class="conversor-wrapper">
+        <div class="form-group">
+            <label id="label-origen"><span>ARS</span></label>
+            <input type="hidden" id="moneda-origen" value="ARS">
+        </div>
+        
+        <button id="btn-invertir" class="btn-swap" title="Invertir monedas">
+          ⇄
+        </button>
+
+        <div class="form-group">
+            <label id="label-destino">USD</label>
+            <input type="hidden" id="moneda-destino" value="USD">
+        </div>
+      </div>
 
       <div class="form-group">
-          <label id="label-destino">USD</label>
-          <input type="hidden" id="moneda-destino" value="USD">
+          <label for="monto">Monto :</label>
+          <input type="text" id="monto" placeholder="Ej: 100" autocomplete="off">
       </div>
-    </div>
-
-    <div class="form-group">
-        <label for="monto">Monto :</label>
-        <input type="text" id="monto" placeholder="Ej: 100" autocomplete="off">
-    </div>
-
+    </div>        
     <div id="resultado-conversion" class="resultado-conversion"></div>
   `;
 
@@ -256,7 +257,7 @@ export async function renderizarConversor(containerId) {
     const simboloDestino = monedaDestino === 'ARS' ? '$' : 'US$';
 
     resultadoDiv.innerHTML = `
-    <div class="resultado-exitoso animate-in">
+    <div class="resultado-exitoso">
       <div class="conversion-visual">
         <div class="monto-origen">
           <span class="valor">${simboloOrigen}${montoOriginal.toLocaleString('es-AR')}</span>
@@ -267,8 +268,8 @@ export async function renderizarConversor(containerId) {
         </div>
       </div>
       <div class="detalles-conversion">
-      <small>Cotización: 1 USD = $${tasa.toFixed(2)} (${tipoTasa})</small>
-        <small>Tipo: Dolar ${precio.casa}
+        <small>1 USD = $${tasa.toFixed(2)} (${tipoTasa}) / </small>
+        <small>Dolar ${precio.casa}</small>
       </div>
     </div>`;
   }
