@@ -44,20 +44,20 @@ export async function renderizarCotizaciones(containerId) {
     // El join('') recorre el array y une todos los string generados en uno solo.
     // Utilizo el optional chaining (?.) si el valor antes del signo de interrogacion es null o undefined, no intenta acceder a la propiedad fechaActualizacion y devuelve undefined en su lugar, evitando un error.
     container.innerHTML = `
-      <div class="cotizaciones-cabecera">
-        <h2>Cotizaciones USD</h2>
-        <div>
-          <span class="live-dot"></span>
-          <span>EN VIVO</span>
+        <div class="cotizaciones-cabecera">
+          <h2>Cotizaciones USD</h2>
+          <div>
+            <span class="live-dot"></span>
+            <span>EN VIVO</span>
+          </div>
         </div>
-      </div>
-      
-      <div class="cotizaciones-dolar">
-        ${cotizacionesConVariacion.map(cotizacion => crearTarjetaHtml(cotizacion)).join('')} 
-      </div>
-      <p class="ultima-actualizacion">
-        Última actualización: ${new Date(cotizacionesActuales[0]?.fechaActualizacion || new Date()).toLocaleString('es-AR')} 
-      </p>
+        
+        <div class="cotizaciones-dolar">
+          ${cotizacionesConVariacion.map(cotizacion => crearTarjetaHtml(cotizacion)).join('')} 
+        </div>
+        <p class="ultima-actualizacion">
+          Última actualización: ${new Date(cotizacionesActuales[0]?.fechaActualizacion || new Date()).toLocaleString('es-AR')} 
+        </p>
     `;
   } catch (error) {
     container.innerHTML = '<p class="error">Error al cargar las cotizaciones del dólar. Por favor, intente nuevamente más tarde.</p>';

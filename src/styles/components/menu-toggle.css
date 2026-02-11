@@ -1,0 +1,65 @@
+.menu-overlay {
+  content: "";
+  position: fixed;
+  top: 51px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 51px);
+  /* Altura completa menos el header */
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 999;
+  /* Debe estar por encima del contenido pero debajo del nav */
+  pointer-events: none;
+
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+}
+
+
+.menu-toggle {
+  background-color: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  color: var(--primary);
+  position: relative;
+  background-color: inherit;
+  transition: all 0.2s;
+  z-index: 1001;
+
+  &:hover,
+  &:focus {
+    background-color: var(--secondary);
+    border-radius: 0.15rem;
+  }
+
+  .menu-icon {
+    padding-top: 0.2rem;
+  }
+
+  .close-icon {
+    display: none;
+  }
+
+  &[aria-expanded="true"] {
+    .menu-icon {
+      display: none;
+    }
+
+    .close-icon {
+      display: block;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .menu-toggle {
+    display: none;
+  }
+}

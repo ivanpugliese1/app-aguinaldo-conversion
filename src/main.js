@@ -81,7 +81,7 @@ document.addEventListener("keydown", (e) => {
 
 // ********************** SECCION RENDERIZADO - PRECIO DOLAR ********************** //
 document.querySelector('.seccion-cotizaciones').innerHTML = `
-      <article id="cotizaciones-container" class="cotizaciones-container"></article>
+      <article id="cotizaciones-container" class="cotizaciones-container width-page"></article>
 `;
 
 

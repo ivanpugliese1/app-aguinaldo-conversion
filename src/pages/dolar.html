@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>app-aguinaldo-conversion</title>
-  <link rel="stylesheet" href="../css/styles.css">
+  <title>Conversion y Dolar en tiempo real</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/pages/dolar.css">
   <script type="module" src="../main.js" defer></script>
 </head>
 
@@ -27,10 +28,9 @@
     <nav>
       <ul>
         <li><a href="../../index.html">Inicio</a></li>
-        <li><a href="">Dolar</a></li>
-        <li><a href="">Sueldo</a></li>
-        <li><a href="">Aguinaldo</a></li>
-        <li><a href="">Inversiones</a></li>
+        <li><a href="./dolar.html">Dolar</a></li>
+        <li><a href="./sueldo.html">Sueldo</a></li>
+        <li><a href="./aguinaldo.html">Aguinaldo</a></li>
       </ul>
     </nav>
 
@@ -77,17 +77,21 @@
     </div>
   </header>
 
-  <main class="page">
-    <section class="seccion-titulo">
-      <h1>Conversor de Monedas y Dólar en Argentina</h1>
-      <p>Consultá la cotización del dolar en tiempo real para calcular valores, comparar cotizaciones y tomar mejores
-        decisiones. <strong>Una herramienta práctica, clara y actualizada</strong>, pensada para tu uso diario.</p>
-      <img src="../images/dolar-image.svg"
-        alt="Imágen de la sección de los tipos de dolares y conversión a modo de presentación unicamente.">
-    </section>
-
-    <section class="seccion-conversion">
-      <form id="formulario-conversion" class="formulario-conversion"></form>
+  <main>
+    <section class="seccion-bienvenida-pagina-dolar">
+      <div class="bienvenida-conversion-dolar-container width-page">
+        <div class="dolar-titulo">
+          <h1>Conversor de Monedas y Dólar en Argentina</h1>
+          <p>Consultá la cotización del dolar en tiempo real para calcular valores, comparar cotizaciones y tomar
+            mejores
+            decisiones. <strong>Una herramienta práctica, clara y actualizada</strong>, pensada para tu uso diario.</p>
+          <img src="../images/dolar-image.svg"
+            alt="Imágen de la sección de los tipos de dolares y conversión a modo de presentación unicamente.">
+        </div>
+        <div class="conversion">
+          <form id="formulario-conversion" class="formulario-conversion"></form>
+        </div>
+      </div>
     </section>
 
     <section class="seccion-cotizaciones"></section>

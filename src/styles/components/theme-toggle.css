@@ -1,0 +1,12 @@
+.theme-toggle {
+  background-color: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  color: var(--primary);
+  background-color: inherit;
+
+  .dark-theme-icon {
+    display: none;
+  }
+}
