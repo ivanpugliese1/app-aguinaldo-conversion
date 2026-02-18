@@ -1,5 +1,7 @@
 import { renderizarCotizaciones } from "./components/cotizacionDolar.js";
 import { renderizarConversor } from "./components/conversorMoneda.js";
+import { initializeBonusCalculator } from "./components/calculateBonus.js";
+import { initNetSalaryCalculator } from "./components/calculateNetSalary.js";
 
 
 // ********************** MENU TOGGLE ********************** //
@@ -79,19 +81,30 @@ document.addEventListener("keydown", (e) => {
 });
 
 
+
 // ********************** SECCION RENDERIZADO - PRECIO DOLAR ********************** //
-document.querySelector('.seccion-cotizaciones').innerHTML = `
-      <article id="cotizaciones-container" class="cotizaciones-container width-page"></article>
-`;
+const seccionCotizaciones = document.querySelector('.seccion-cotizaciones');
 
+if (seccionCotizaciones) {
+  seccionCotizaciones.innerHTML = `
+    <article id="cotizaciones-container" class="cotizaciones-container width-page"></article>
+  `;
 
-// Inicializar componentes
-renderizarConversor('formulario-conversion');  // ← Inicializar conversor
-// Inicializar componente
-// Pequeño delay para asegurar que el DOM se actualizó
-setTimeout(() => {
-  renderizarCotizaciones('cotizaciones-container');
-}, 0); // Incluso con 0ms funciona porque pasa al siguiente ciclo del event loop
+  // Inicializar componentes
+  renderizarConversor('formulario-conversion');
 
+  setTimeout(() => {
+    renderizarCotizaciones('cotizaciones-container');
+  }, 0);
+}
 
+// Inicializar calculadora de aguinaldo solo si existe el contenedor
+const calculadoraBonus = document.getElementById('calculateBonus');
+if (calculadoraBonus) {
+  initializeBonusCalculator('calculateBonus');
+}
 
+const netSalaryCalculator = document.getElementById('net-salary-calculator-container');
+if (netSalaryCalculator) {
+  initNetSalaryCalculator('net-salary-calculator-container');
+}
