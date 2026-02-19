@@ -1,5 +1,57 @@
 import { calculateBonus } from "../services/bonusService.js";
 
+// Storage key for sessionStorage
+const STORAGE_KEY = 'bonusLastResult';
+
+// ✅ Save result to sessionStorage
+function saveResult(result) {
+  console.log('🔍 Saving result:', result);
+  try {
+    const resultToSave = {
+      ...result,
+      startDate: result.entryDate?.toISOString(),
+      calculationDate: result.dateCalculation?.toISOString(),
+      semesterStart: result.startSemester?.toISOString(),
+      semesterEnd: result.endSemester?.toISOString(),
+      effectiveStartDate: result.effectiveStartDate?.toISOString()
+    };
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(resultToSave));
+    console.log('✅ Successfully saved to sessionStorage');
+  } catch (error) {
+    console.error('❌ Error saving result:', error);
+  }
+}
+
+// ✅ Retrieve result from sessionStorage
+function getSavedResult() {
+  console.log('🔍 Attempting to retrieve result...');
+  try {
+    const saved = sessionStorage.getItem(STORAGE_KEY);
+    console.log('📦 Retrieved data:', saved);
+
+    if (!saved) {
+      console.log('ℹ️ No saved result found');
+      return null;
+    }
+
+    const result = JSON.parse(saved);
+
+    // Convert strings back to Date objects
+    if (result.startDate) result.startDate = new Date(result.startDate);
+    if (result.calculationDate) result.calculationDate = new Date(result.calculationDate);
+    if (result.semesterStart) result.semesterStart = new Date(result.semesterStart);
+    if (result.semesterEnd) result.semesterEnd = new Date(result.semesterEnd);
+    if (result.effectiveStartDate) result.effectiveStartDate = new Date(result.effectiveStartDate);
+
+    console.log('✅ Result restored:', result);
+    return result;
+  } catch (error) {
+    console.error('❌ Error retrieving result:', error);
+    return null;
+  }
+}
+
+
 export function initializeBonusCalculator(containerId) {
   const container = document.getElementById(containerId);
 
@@ -22,35 +74,26 @@ export function initializeBonusCalculator(containerId) {
   const inputDate = (date) => date.toISOString().split('T')[0];
 
   container.innerHTML = `
-    <div class="calculator-title">
-      <h2>Calculá tu aguinaldo</h2>
-      <small>Proporcional a los meses trabajados en determinado semestre.</small>
-    </div>
     <form id="form-bonus" class="form-bonus">
         <div class="form-group">
           <label for="better-salary">
-            💵 Mejor sueldo bruto del semestre
-            <span class="tooltip" title="Ingresá el sueldo bruto más alto que recibiste en el semestre">ⓘ</span>
+            Mejor sueldo bruto del semestre :
           </label>
-          <div>
-            <span>$</span>
-            <input
-              type="number"
-              id="better-salary"
-              name="better-salary"
-              placeholder="500000"
-              step="0.01"
-              min="0"
-              required
-            >
-          </div>
-          <small>Sueldo bruto (antes de descuentos)</small>
+          <input
+            type="number"
+            id="better-salary"
+            name="better-salary"
+            placeholder="$ 500.000"
+            step="0.01"
+            min="0"
+            required
+          >
+          <small>Mejor sueldo bruto (antes de descuentos)</small>
         </div>
 
         <div class="form-group">
           <label for="entry-date">
-            📅 Fecha de ingreso al trabajo
-            <span class="tooltip" title="Fecha en que comenzaste a trabajar"></span>
+            Fecha de ingreso al trabajo :
           </label>
           <input
             type="date"
@@ -64,8 +107,7 @@ export function initializeBonusCalculator(containerId) {
 
         <div class="form-group">
           <label for="input-date">
-            📊 Fecha de liquidación del aguinaldo
-            <span class="tooltip" title="Usualmente 30 de junio o 31 de diciembre"></span>
+            Fecha de liquidación del aguinaldo :
           </label>
           <input 
             type="date" 
@@ -80,48 +122,31 @@ export function initializeBonusCalculator(containerId) {
           </small>
         </div>
 
-        <div class="form-group-buttons">
-          <button type="button" class="btn-secondary" id="btn-first-semester">
-            📅 Primer semestre (Junio)
-          </button>
-          <button type="button" class="btn-secondary" id="btn-second-semester">
-            📅 Segundo semestre (Diciembre)
-          </button>
-        </div>
 
         <button type="submit" class="btn-primary">
-          🧮 Calcular Aguinaldo
+          Calcular Aguinaldo
         </button>
     </form>
-
-    <div id="bonus-result" class="bonus-result"></div>
   `
+  setTimeout(() => {
+    bonusEvents();
 
-  bonusEvents();
+    // ✅ Restore previous result if exists
+    const savedResult = getSavedResult();
+    if (savedResult) {
+      showResultBonus(savedResult);
+    }
+  }, 0);
 }
+
 
 function bonusEvents() {
   const form = document.getElementById('form-bonus');
-  const btnFirstSemester = document.getElementById('btn-first-semester');
-  const btnSecondSemester = document.getElementById('btn-second-semester');
-  const calculateInputDate = document.getElementById('input-date');
 
   // Envio del form
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     calculateBonusFormData();
-  })
-
-  btnFirstSemester.addEventListener('click', () => {
-    const currentYear = new Date().getFullYear();
-    const date = new Date(currentYear, 5, 30);
-    calculateInputDate.value = date.toISOString().split('T')[0];
-  })
-
-  btnSecondSemester.addEventListener('click', () => {
-    const currentYear = new Date().getFullYear();
-    const date = new Date(currentYear, 11, 31);
-    calculateInputDate.value = date.toISOString().split('T')[0];
   })
 }
 
@@ -147,6 +172,8 @@ function calculateBonusFormData() {
   // Calculamos el aguinaldo
   try {
     const result = calculateBonus(betterSalary, entryDate, calculationDate);
+    // ✅ Guardar en sessionStorage
+    saveResult(result);
     showResultBonus(result);
   } catch (error) {
     bonusShowError(error.message);
@@ -156,90 +183,73 @@ function calculateBonusFormData() {
 function showResultBonus(result) {
   const divResult = document.getElementById('bonus-result');
 
-  const semesterText = result.semester === 1 ? 'Primer' : 'Segundo';
-  const percentageWorked = result.proportion;
+  const semesterText = result.semester === 1 ? 'Primero ->' : 'Segundo ->';
 
   divResult.innerHTML = `
-      <div class="result-main">
-        <div>
-          <span class="label-amount">Aguinaldo: </span>
-          <span class="bonus-amount">$${result.bonusAmount.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-          ${!result.fullSemesterWork ? `
-            <span class="badge-proporcional">
-              Proporcional (${percentageWorked}% del semestre)
-            </span>
-          ` : `
-            <span class="badge-completo">
-              Semestre completo trabajado
-            </span>
-          `}
-        </div>
-      </div>
-
-      <div class="detalles-calculo">
-        <h3>📋 Detalle del cálculo</h3>
+      <div class="calculation-details">
+        <h3>Detalles del cálculo</h3>
         
-        <div class="seccion-detalle">
+        <div class="detail-group">
           <h4>Datos ingresados</h4>
           <div class="grid-detalles">
-            <div class="item-detalle">
-              <span class="label">Mejor sueldo:</span>
+            <div class="item-detail">
+              <span class="detail-text">Mejor sueldo :</span>
               <span class="value">$${result.betterSalary.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</span>
             </div>
-            <div class="item-detalle">
-              <span class="label">Fecha de ingreso:</span>
+            <div class="item-detail">
+              <span class="detail-text">Fecha de ingreso :</span>
               <span class="value">${formatDate(result.entryDate)}</span>
             </div>
-            <div class="item-detalle">
-              <span class="label">Fecha de cálculo:</span>
+            <div class="item-detail">
+              <span class="detail-text">Fecha de cálculo :</span>
               <span class="value">${formatDate(result.dateCalculation)}</span>
             </div>
-            <div class="item-detalle">
-              <span class="label">Semestre:</span>
+            <div class="item-detail">
+              <span class="detail-text">Semestre :</span>
               <span class="value">${semesterText} (${formatDate(result.startSemester)} al ${formatDate(result.endSemester)})</span>
             </div>
           </div>
         </div>
 
-        <div class="seccion-detalle">
+        <div class="detail-group">
           <h4>Tiempo trabajado</h4>
           <div class="grid-detalles">
-            <div class="item-detalle">
-              <span class="label">Desde:</span>
+            <div class="item-detail">
+              <span class="detail-text">Desde :</span>
               <span class="value">${formatDate(result.effectiveStartDate)}</span>
             </div>
-            <div class="item-detalle">
-              <span class="label">Hasta:</span>
+            <div class="item-detail">
+              <span class="detail-text">Hasta :</span>
               <span class="value">${formatDate(result.dateCalculation)}</span>
             </div>
-            <div class="item-detalle">
-              <span class="label">Período trabajado:</span>
+            <div class="item-detail">
+              <span class="detail-text">Período trabajado :</span>
               <span class="value">${result.monthsWorked} ${result.monthsWorked === 1 ? 'mes' : 'meses'} y ${result.daysWorked} ${result.daysWorked === 1 ? 'día' : 'días'}</span>
             </div>
-            <div class="item-detalle">
-              <span class="label">Meses (decimal):</span>
+            <div class="item-detail">
+              <span class="detail-text">Meses (decimal) :</span>
               <span class="value">${result.monthsWorkedDecimal} meses</span>
             </div>
           </div>
         </div>
 
-        <div class="seccion-detalle calculo-matematico">
-          <h4>🧮 Cálculo matemático</h4>
+        <div class="detail-group math-calculation">
+          <h4>Cálculo matemático</h4>
           <div class="formula-visual">
-            <p>Aguinaldo = (Mejor sueldo ÷ 12) × Meses trabajados</p>
+            <p>- (Mejor sueldo / 12) * Meses trabajados</p>
             <p class="formula-numeros">
-              Aguinaldo = ($${result.betterSalary.toLocaleString('es-AR')} ÷ 12) × ${result.monthsWorkedDecimal}
+              - ($ ${result.betterSalary.toLocaleString('es-AR')} / 12) * ${result.monthsWorkedDecimal}
             </p>
             <p class="formula-numeros">
-              Aguinaldo = $${(result.betterSalary / 12).toLocaleString('es-AR', { maximumFractionDigits: 2 })} × ${result.monthsWorkedDecimal}
+              - $ ${(result.betterSalary / 12).toLocaleString('es-AR', { maximumFractionDigits: 2 })} * ${result.monthsWorkedDecimal}
             </p>
             <p class="formula-resultado">
-              Aguinaldo = <strong>$${result.bonusAmount.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</strong>
+              Aguinaldo = <strong>$ ${result.bonusAmount.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</strong>
             </p>
           </div>
         </div>
 
-        <div class="info-adicional">
+        <div class="additional-info">
           <p>
             💡 <strong>Recordá:</strong> Este es el monto BRUTO de tu aguinaldo. 
             A este monto se le aplicarán los mismos descuentos que a tu sueldo mensual 
@@ -260,9 +270,22 @@ function bonusShowError(mensaje) {
 }
 
 function formatDate(date) {
-  return date.toLocaleDateString('es-AR', {
+  // Si no hay fecha, devolvemos un string vacío o un placeholder
+  if (!date) return 'N/A';
+
+  // Si es un string (porque vino de sessionStorage o un input), lo convertimos
+  const dateObj = (date instanceof Date) ? date : new Date(date);
+
+  // Verificamos si la fecha es válida para evitar el error "Invalid Date"
+  if (isNaN(dateObj.getTime())) {
+    console.error("Fecha inválida recibida:", date);
+    return 'Fecha error';
+  }
+
+  return dateObj.toLocaleDateString('es-AR', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric'
   });
 }
+

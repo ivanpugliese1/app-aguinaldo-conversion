@@ -69,24 +69,6 @@
             }
           }
         }
-
-        .btn-primary {
-          align-self: center;
-          width: 50%;
-          padding: 0.4rem;
-          font-family: inherit;
-          font-weight: bold;
-          color: #ffffff;
-          background-color: var(--primary);
-          border-radius: 0.5rem;
-          border: none;
-          cursor: pointer;
-          transition: all 0.2s;
-
-          &:hover {
-            transform: scale(1.1);
-          }
-        }
       }
     }
 
