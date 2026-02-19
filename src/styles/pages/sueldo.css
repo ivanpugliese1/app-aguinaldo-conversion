@@ -104,10 +104,7 @@
 .deductions-description-section {
   h2 {
     margin-bottom: 1rem;
-  }
-
-  h3 {
-    color: var(--primary);
+    text-align: center;
   }
 
   >div {
@@ -151,6 +148,6 @@
   }
 
   .deductions-description-section {
-    padding: 2rem 0;
+    padding: 1rem 0;
   }
 }

@@ -21,6 +21,10 @@
         text-align: center;
         gap: 1rem;
 
+        h1 {
+          color: var(--primary);
+        }
+
         img {
           width: 250px;
           margin-top: 1rem;
@@ -81,8 +85,12 @@
         gap: 1rem;
 
         .detail-text {
-          color: var(--primary);
           font-weight: bold;
+          font-size: 0.9rem;
+        }
+
+        .value {
+          font-size: 0.9rem;
         }
 
         .additional-info {
@@ -90,27 +98,17 @@
             font-size: 0.9rem;
           }
         }
+
+        .math-calculation {
+          .math-calculation-text {
+            p {
+              font-size: 0.9rem;
+            }
+          }
+        }
       }
-    }
-  }
-}
-
-.bonus-description-section>div {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-
-  .bonus-description-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 1rem;
 
 
-    h3 {
-      color: var(--primary);
-      font-weight: bold;
     }
   }
 }
@@ -132,4 +130,5 @@
       }
     }
   }
+
 }

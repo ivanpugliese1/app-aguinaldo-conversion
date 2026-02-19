@@ -235,15 +235,15 @@ function showResultBonus(result) {
 
         <div class="detail-group math-calculation">
           <h4>Cálculo matemático</h4>
-          <div class="formula-visual">
+          <div class="math-calculation-text">
             <p>- (Mejor sueldo / 12) * Meses trabajados</p>
-            <p class="formula-numeros">
+            <p>
               - ($ ${result.betterSalary.toLocaleString('es-AR')} / 12) * ${result.monthsWorkedDecimal}
             </p>
-            <p class="formula-numeros">
+            <p>
               - $ ${(result.betterSalary / 12).toLocaleString('es-AR', { maximumFractionDigits: 2 })} * ${result.monthsWorkedDecimal}
             </p>
-            <p class="formula-resultado">
+            <p>
               Aguinaldo = <strong>$ ${result.bonusAmount.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</strong>
             </p>
           </div>
