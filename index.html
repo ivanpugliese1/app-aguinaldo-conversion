@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>app-aguinaldo-conversion</title>
-  <link rel="stylesheet" href="./src/css/styles.css">
+  <title>Inicio</title>
+  <link rel="stylesheet" href="./src/styles/main.css">
+  <link rel="stylesheet" href="./src/styles/pages/inicio.css">
   <script type="module" src="/src/main.js" defer></script>
 </head>
 
@@ -21,8 +22,17 @@
         <path d="M21 15h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5" />
         <path d="M19 21v1m0 -8v1" />
       </svg>
-      <span>Dolar&SAC</span>
+      <span>Pugliese&Finanzas</span>
     </div>
+
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="./src/pages/dolar.html">Dolar</a></li>
+        <li><a href="./src/pages/sueldo.html">Sueldo</a></li>
+        <li><a href="./src/pages/aguinaldo.html">Aguinaldo</a></li>
+      </ul>
+    </nav>
 
     <div>
       <button class="menu-toggle" aria-label="Abrir Menu" aria-expanded="false">
@@ -65,30 +75,35 @@
         </svg>
       </button>
     </div>
-
-    <nav>
-      <ul>
-        <li><a href="./index.html">Inicio</a></li>
-        <li><a href="src/pages/dolar.html">Dolar</a></li>
-        <li><a href="">Sueldo</a></li>
-        <li><a href="">Aguinaldo</a></li>
-        <li><a href="">Inversiones</a></li>
-      </ul>
-    </nav>
   </header>
 
   <main>
+    <section class="welcome-section">
+      <div class="width-page">
+        <h1>¡Bienvenido a Pugliese&Finanzas!</h1>
+        <p>Tu espacio simple para resolver cálculos financieros diarios, el objetivo es brindarte herramientas claras y
+          útiles para que entiendas mejor tus ingresos!</p>
+        <ul>
+          <li>Consulta la <strong>cotización del dolar en tiempo real.</strong></li>
+          <li>Calculá tu <strong>sueldo neto</strong> a detalle.</li>
+          <li>Calculá tu <strong>aguinaldo (SAC)</strong> en simples pasos.</li>
+        </ul>
+        <img src="./src/images/welcome-image.svg"
+          alt="Imágen ilustrativa de la página de bienvenida, relacionada a finanzas personales.">
+      </div>
 
-    <section class="seccion-bienvenida">
-      <h1>¡Bienvenido a Dolar&SAC!</h1>
-      <p>¿Dólar, Sueldo, Inversiones? en Dolar&SAC calculá tu aguinaldo y/o sueldo neto en segundos, consulta las
-        cotizaciones actualizadas y mantenete al día.</p>
     </section>
+
+    <section class="dolar-section"></section>
+
+    <section class="bonus-section"></section>
+
+    <section class="net-salary-section"></section>
 
   </main>
 
   <footer>
-
+    <small>Desarrollado por @Ivan Pugliese</small>
   </footer>
 </body>
 
