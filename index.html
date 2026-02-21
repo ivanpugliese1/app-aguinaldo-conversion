@@ -7,7 +7,7 @@
   <title>Inicio</title>
   <link rel="stylesheet" href="./src/styles/main.css">
   <link rel="stylesheet" href="./src/styles/pages/inicio.css">
-  <script type="module" src="/src/main.js" defer></script>
+  <script type="module" src="./src/main.js" defer></script>
 </head>
 
 <body>
@@ -80,26 +80,44 @@
   <main>
     <section class="welcome-section">
       <div class="width-page">
-        <h1>¡Bienvenido a Pugliese&Finanzas!</h1>
-        <p>Tu espacio simple para resolver cálculos financieros diarios, el objetivo es brindarte herramientas claras y
-          útiles para que entiendas mejor tus ingresos!</p>
-        <ul>
-          <li>Consulta la <strong>cotización del dolar en tiempo real.</strong></li>
-          <li>Calculá tu <strong>sueldo neto</strong> a detalle.</li>
-          <li>Calculá tu <strong>aguinaldo (SAC)</strong> en simples pasos.</li>
-        </ul>
-        <img src="./src/images/welcome-image.svg"
-          alt="Imágen ilustrativa de la página de bienvenida, relacionada a finanzas personales.">
+        <div class="welcome-section-title">
+          <h1>¡Bienvenido a Pugliese&Finanzas!</h1>
+          <p>Tu espacio simple para resolver cálculos financieros diarios, el objetivo es brindarte herramientas claras
+            y
+            útiles para que entiendas mejor tus ingresos.</p>
+          <img src="./src/images/welcome-image.svg"
+            alt="Imágen ilustrativa de la página de bienvenida, relacionada a finanzas personales.">
+        </div>
+        <div class="welcome-section-tools">
+          <div class="tools-items">
+            <h3>Dolar hoy y Conversor</h3>
+            <p>Consultá la cotización del dolar en tiempo real, convertí fácilmente dólares a pesos argentinos y
+              viceversa.</p>
+            <div><span>👉</span><a href="./src/pages/dolar.html">Ir al conversor</a></div>
+
+          </div>
+          <div class="tools-items">
+            <h3>Calculá tu Sueldo Neto</h3>
+            <p>Herramienta clara que te permite calcular, según tu sueldo bruto, cuanto vas a cobrar después de las
+              deducciones
+              obligatorias.</p>
+            <div>
+              <span>👉</span><a href="./src/pages/sueldo.html">Calcular Sueldo Neto</a>
+            </div>
+
+          </div>
+          <div class="tools-items">
+            <h3>Calculá tu Aguinaldo</h3>
+            <p>Obtené una estimación clara de cuanto te corresponde cobrar según tu sueldo.</p>
+            <div>
+              <span>👉</span><a href="./src/pages/aguinaldo.html">Calcular Aguinaldo</a>
+            </div>
+
+          </div>
+        </div>
       </div>
 
     </section>
-
-    <section class="dolar-section"></section>
-
-    <section class="bonus-section"></section>
-
-    <section class="net-salary-section"></section>
-
   </main>
 
   <footer>
