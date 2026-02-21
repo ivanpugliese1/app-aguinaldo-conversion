@@ -1,5 +1,5 @@
 .seccion-bienvenida-pagina-dolar {
-  padding-top: 1rem;
+  padding: 2rem 0;
   background-color: #FAF8F5;
 
   .dolar-titulo {
@@ -7,7 +7,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
+    gap: 0.5rem;
     margin-bottom: 3rem;
 
     h1 {
@@ -330,6 +330,10 @@
 
     .dolar-titulo {
       flex: 1;
+
+      p {
+        text-align: left;
+      }
 
       img {
         width: 300px;

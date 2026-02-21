@@ -1,5 +1,5 @@
 .calculate-bonus-section {
-  padding-top: 1rem;
+  padding: 2rem 0;
   background-color: #FAF8F5;
 
   .calculate-bonus-container {
@@ -16,14 +16,7 @@
       .calculate-bonus-title {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
         gap: 1rem;
-
-        h1 {
-          color: var(--primary);
-        }
 
         img {
           width: 250px;
@@ -116,8 +109,6 @@
 @media (min-width: 768px) {
 
   .calculate-bonus-section {
-    padding: 2rem 0;
-
     .calculate-bonus-container>.calculate-bonus-main-content {
       flex-direction: row;
 
@@ -130,5 +121,4 @@
       }
     }
   }
-
 }
