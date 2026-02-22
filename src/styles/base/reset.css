@@ -49,6 +49,10 @@ strong {
   color: var(--primary);
 }
 
+footer {
+  margin-top: auto;
+}
+
 .width-page {
   max-width: 1000px;
   margin: 0 auto;

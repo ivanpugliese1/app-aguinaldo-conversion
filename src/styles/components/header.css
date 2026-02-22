@@ -12,18 +12,25 @@ header {
   border-bottom: 1px solid var(--primary);
 
   .header-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.2rem;
+    padding: 0 1rem;
+    border-radius: 0.9rem;
+    background-color: var(--primary);
+    color: #ffffff;
 
-    svg {
-      color: var(--primary);
-    }
+    a {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
 
-    span {
-      font-size: 1.2rem;
-      font-weight: bold;
-      padding-top: 0.2rem;
+      svg {
+        color: var(--primary);
+      }
+
+      span {
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding-top: 0.2rem;
+      }
     }
   }
 }

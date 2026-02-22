@@ -1,5 +1,5 @@
 .net-salary-calculator-section {
-  padding: 2rem 0;
+  padding-top: 2rem;
   background-color: #FAF8F5;
 
   >div {
@@ -20,7 +20,7 @@
 
         img {
           width: 250px;
-          margin-top: 1rem;
+          margin: 1.5rem 0;
         }
       }
 
