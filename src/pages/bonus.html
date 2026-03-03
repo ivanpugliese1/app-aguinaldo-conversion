@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inicio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculá tu aguinaldo</title>
   <script>
     (function () {
       const saved = localStorage.getItem('theme');
@@ -13,16 +13,17 @@
         document.documentElement.classList.add('dark-mode');
       }
     })();
-  </script>
+  </script>
+
   <script type="module" crossorigin src="/app-aguinaldo-conversion/assets/main-DZSwva6Q.js"></script>
   <link rel="stylesheet" crossorigin href="/app-aguinaldo-conversion/assets/main-DJrgmv_q.css">
-  <link rel="stylesheet" crossorigin href="/app-aguinaldo-conversion/assets/main-DYAD2Duf.css">
+  <link rel="stylesheet" crossorigin href="/app-aguinaldo-conversion/assets/bonus-B6L5ZzvF.css">
 </head>
 
 <body>
   <header>
     <div class="header-logo">
-      <a href="./index.html">
+      <a href="../../index.html">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff"
           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
           class="icon icon-tabler icons-tabler-outline icon-tabler-home-dollar">
@@ -38,10 +39,10 @@
 
     <nav>
       <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="./src/pages/dollar.html">Dolar</a></li>
-        <li><a href="./src/pages/salary.html">Sueldo</a></li>
-        <li><a href="./src/pages/bonus.html">Aguinaldo</a></li>
+        <li><a href="../../index.html">Inicio</a></li>
+        <li><a href="./dollar.html">Dolar</a></li>
+        <li><a href="./salary.html">Sueldo</a></li>
+        <li><a href="./bonus.html">Aguinaldo</a></li>
       </ul>
     </nav>
 
@@ -89,45 +90,28 @@
   </header>
 
   <main>
-    <section class="welcome-section">
-      <div class="width-page">
-        <div class="welcome-section-title">
-          <h1>¡Bienvenido a Pugliese&Finanzas!</h1>
-          <p>Tu espacio simple para resolver cálculos financieros diarios, el objetivo es brindarte herramientas claras
-            y
-            útiles para que entiendas mejor tus ingresos.</p>
-          <img src="/app-aguinaldo-conversion/assets/welcome-image-D2vtFkcq.svg"
-            alt="Imágen ilustrativa de la página de bienvenida, relacionada a finanzas personales.">
+    <section class="calculate-bonus-section">
+      <div class="calculate-bonus-container width-page">
+        <div class="calculate-bonus-main-content">
+          <div class="calculate-bonus-title">
+            <h1>Calculá tu aguinaldo</h1>
+            <p>El aguinaldo o sueldo anual complementario, es el <strong>50% de la mayor remuneración mensual percibida
+                dentro de cada semestre.</strong> Si el semestre no fue trabajado en su totalidad, se pagará un
+              proporcional a los meses trabajados.
+            </p>
+            <p>
+              <strong>
+                Se
+                aplica
+                la siguiente fórmula :
+              </strong> (el salario / 12) * los meses trabajados.
+            </p>
+            <img src="/app-aguinaldo-conversion/assets/calculator-bonus-CHM1ry3z.svg" alt="Imagen ilustrativa de calculadora de aguinaldo.">
+          </div>
+          <div id="calculateBonus" class="bonus-calculator"></div>
         </div>
-        <div class="welcome-section-tools">
-          <div class="tools-items">
-            <h3>Dolar hoy y Conversor</h3>
-            <p>Consultá la cotización del dolar en tiempo real, convertí fácilmente dólares a pesos argentinos y
-              viceversa.</p>
-            <div><span>👉</span><a href="./src/pages/dollar.html">Ir al conversor</a></div>
-
-          </div>
-          <div class="tools-items">
-            <h3>Calculá tu Sueldo Neto</h3>
-            <p>Herramienta clara que te permite calcular, según tu sueldo bruto, cuanto vas a cobrar después de las
-              deducciones
-              obligatorias.</p>
-            <div>
-              <span>👉</span><a href="./src/pages/salary.html">Calcular Sueldo Neto</a>
-            </div>
-
-          </div>
-          <div class="tools-items">
-            <h3>Calculá tu Aguinaldo</h3>
-            <p>Obtené una estimación clara de cuanto te corresponde cobrar según tu sueldo.</p>
-            <div>
-              <span>👉</span><a href="./src/pages/bonus.html">Calcular Aguinaldo</a>
-            </div>
-
-          </div>
-        </div>
+        <div id="bonus-result" class="bonus-result"></div>
       </div>
-
     </section>
   </main>
 
@@ -171,6 +155,7 @@
       </div>
     </div>
   </footer>
+
 </body>
 
 </html>
