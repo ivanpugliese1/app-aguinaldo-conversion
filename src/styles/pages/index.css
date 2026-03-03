@@ -1,6 +1,8 @@
 .welcome-section {
+  flex: 1;
   padding: 2rem 0;
-  background-color: var(--background-secondary-light);
+  background-color: var(--background-secondary);
+  color: var(--text-primary);
 
   >div {
     display: flex;
@@ -11,7 +13,6 @@
     .welcome-section-title {
       display: flex;
       flex-direction: column;
-
 
       h1 {
         margin-bottom: 1rem;
@@ -35,7 +36,7 @@
         flex-direction: column;
         gap: 0.5rem;
         padding-bottom: 1rem;
-        border-bottom: 1px solid var(--primary);
+        border-bottom: 1px solid var(--border);
 
         h3 {
           color: var(--color-text-title);
@@ -68,7 +69,6 @@
   }
 }
 
-
 @media (min-width: 768px) {
   .welcome-section {
     >div {
@@ -80,6 +80,10 @@
         img {
           width: 320px;
         }
+      }
+
+      .welcome-section-tools {
+        margin-top: 0.4rem;
       }
     }
   }

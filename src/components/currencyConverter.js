@@ -24,7 +24,7 @@ export async function renderConversor(containerId) {
 
     <div class="form-groups-container">
       <div class="form-group">
-        <label for="tipo-dolar">Seleccioná el tipo de Dólar :</label>
+        <label for="dollar-type">Seleccioná el tipo de Dólar :</label>
         <div class="custom-select-container" id="custom-select">
           <div class="select-selected">
             <span id="selected-text">Dólar Oficial</span>
@@ -86,16 +86,13 @@ export async function renderConversor(containerId) {
     const customSelect = document.getElementById('custom-select');
     const selectedDisplay = customSelect.querySelector('.select-selected');
     const itemsContainer = customSelect.querySelector('.select-items');
-    const arrow = customSelect.querySelector('.arrow');
 
-    // ======== CUSTOM SELECT - ABRIR/CERRAR ========
     let selectOpen = false;
 
     function toggleSelect(e) {
       if (e) e.stopPropagation();
       selectOpen = !selectOpen;
       itemsContainer.classList.toggle('select-hide');
-      arrow.classList.toggle('arrow-rotate');
     }
 
     // Creamos el evento para mostrar y desaparecer al hacer clic en el "input"
@@ -103,7 +100,6 @@ export async function renderConversor(containerId) {
       itemsContainer.classList.toggle('select-hide');
     });
 
-    // Touch en el select (móvil)
     selectedDisplay.addEventListener('touchend', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -120,51 +116,43 @@ export async function renderConversor(containerId) {
         const value = e.target.getAttribute('data-value');
         const text = e.target.innerText;
 
-        // 1. Actualizamos el texto visual
         const textSpan = customSelect.querySelector('#selected-text');
         textSpan.innerText = text;
 
-        // 2. Sincronizamos con el select oculto
         dollarType.value = value;
 
-        // 3. Cerramos el menú
         itemsContainer.classList.add('select-hide');
 
-        // 4. DISPARAMOS TU LÓGICA ORIGINAL
         dollarType.dispatchEvent(new Event('change'));
       }
 
-      // Click
       item.addEventListener('click', selectOption);
 
-      // Touch (móvil)
       item.addEventListener('touchend', selectOption, { passive: false });
     });
 
 
 
-    // ======== CERRAR SELECT AL HACER CLICK/TOUCH FUERA ========
     function closeSelect(e) {
       if (!customSelect.contains(e.target) && selectOpen) {
         selectOpen = false;
         itemsContainer.classList.add('select-hide');
-        arrow.classList.remove('arrow-rotate');
       }
     }
 
     document.addEventListener('click', closeSelect);
     document.addEventListener('touchend', closeSelect);
 
-    // Con el evento input, escuchamos los cambios en el campo de monto en tiempo real.
+
     amountInput.addEventListener('input', (e) => {
-      formatAmount(e.target); // Primero formateamos el monto 
-      performConversion(); // Luego realizamos la conversión
+      formatAmount(e.target);
+      performConversion();
     });
 
-    // Escuchar cambio de tipo de dólar
+
     dollarType.addEventListener('change', performConversion);
 
-    // ======== BOTÓN INVERTIR ========
+
     function invertCurrency(e) {
       e.preventDefault();
 
@@ -186,15 +174,12 @@ export async function renderConversor(containerId) {
   }
 
 
-
-  // Funcion que realiza la conversion de moneda segun el monto, la moneda de origen y el tipo de dolar seleccionado.
   function performConversion() {
     const amountInputValue = document.getElementById('amount').value;
     const originCurrencyValue = document.getElementById('origin-currency').value;
     const dollarTypeValue = document.getElementById('dollar-type').value;
     const divResult = document.getElementById('conversion-result');
 
-    // creamos montoLimpio, donde se toma el valor ingresado en el input, se elimintan los puntos de miles y se reemplaza la coma decimal por punto, para convertirlo a un numero float valido.
     const cleanAmount = parseFloat(amountInputValue.replace(/\./g, '').replace(',', '.'));
 
     if (isNaN(cleanAmount) || cleanAmount <= 0) {
@@ -202,20 +187,17 @@ export async function renderConversor(containerId) {
       return;
     }
 
-    // En la constante precio, buscamos en el array  el objeto que coincida con el tipo de dolar seleccionado en el select.
     const price = pricesInCache.find(p => p.casa === dollarTypeValue);
     if (!price) return;
 
 
     let result, exchange, exchangeType;
 
-    // Si la moneda de origen es ARS, convertimos de Pesos a Dólares usando la tasa de venta.
     if (originCurrencyValue === 'ARS') {
       result = pesoToDollarConversion(cleanAmount, price.venta);
       exchange = price.venta;
       exchangeType = 'venta';
     } else {
-      // Si la moneda de origen es USD, convertimos de Dólares a Pesos usando la tasa de compra.
       result = dollarToPesoConversion(cleanAmount, price.compra);
       exchange = price.compra;
       exchangeType = 'compra';

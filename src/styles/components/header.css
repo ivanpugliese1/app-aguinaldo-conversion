@@ -9,13 +9,18 @@ header {
   align-items: center;
   padding: 0.5rem;
   background-color: var(--background-header);
-  border-bottom: 1px solid var(--primary);
+  border-bottom: 1px solid var(--border);
 
   .header-logo {
     padding: 0 1rem;
     border-radius: 0.9rem;
     background-color: var(--primary);
     color: var(--color-text-logo);
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.03);
+    }
 
     a {
       display: flex;
@@ -39,23 +44,6 @@ header {
   header {
     .menu-toggle {
       display: none;
-    }
-
-    nav {
-      position: static;
-      height: auto;
-
-      ul {
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 0;
-        gap: 2rem;
-
-        a {
-          border-bottom: none;
-        }
-      }
     }
   }
 }

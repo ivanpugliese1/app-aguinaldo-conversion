@@ -1,30 +1,72 @@
 :root {
+  /*General*/
   --primary: #25857d;
   --secondary: rgba(46, 204, 113, 0.15);
-  --background-light: #f8f9fa;
-  --background-secondary-light: #faf8f5;
-  --background-header: #f8f9fa;
-  --color-text-logo: #e2e8f0;
-  --color-text-footer: #e2e8f0;
-  --color-theme-toggle: #25857d;
   --color-text-title: #25857d;
-  --color-text-button: #e2e8f0;
-  --color-text-nav-link: #000000;
-  --text-primary-light: #000000;
+  --color-text-button: #ffffff;
+  --text-primary: #000000;
   --text-muted: #94a3b8;
-  --shadow-light: rgba(0, 0, 0, 0.4);
-  --border-light: #e0e0e0;
+  --shadow: rgba(0, 0, 0, 0.4);
+  --border: rgba(59, 94, 91, 0.5);
+  --background: #f8f9fa;
+  --background-secondary: #faf8f5;
+  /*Header*/
+  --background-header: #faf8f5;
+  --color-text-logo: #ffffff;
+  --color-theme-toggle: #25857d;
+  /*Footer*/
+  --background-footer: #25857d;
+  --color-text-footer: #ffffff;
+  /*Nav*/
+  --color-text-nav-link: #25857d;
+  /*dollar-page*/
+  --background-card-prices: #ffffff;
+  --background-live-dot: #25857d;
+  --color-text-live-dot: #ffffff;
+  --color-value-card: #25857d;
+  --background-positive-variation: rgba(46, 204, 113, 0.15);
+  --background-negative-variation: rgba(231, 76, 60, 0.15);
+  --color-text-positive-variation: #25857d;
+  --color-text-negative-variation: #e74c3c;
+  /*forms*/
+  --background-form: #ffffff;
+  --background-select: #ffffff;
+  --color-text-select: #000000;
+  --background-result: rgba(46, 204, 113, 0.15);
+  --color-text-result: #25857d;
 }
 
 .dark-mode {
-  --background-light: #06182a;
-  --background-secondary-light: #060f0d;
-  --background-header: #0c1f1f;
-  --text-primary-light: #d0def3;
-  --color-theme-toggle: #f8f9fa;
-  --color-text-title: #f8f9fa;
-  --color-text-button: #e2e8f0;
-  --color-text-nav-link: #e2e8f0;
-  --border-light: #2a5f59;
-  --shadow-light: rgba(255, 255, 255, 0.05);
+  /*General*/
+  --primary: #105f59;
+  --background: #131f1e;
+  --background-secondary: #131f1e;
+  --text-primary: #ffffffbb;
+  --color-text-title: #ffffff;
+  --color-text-button: #ffffff;
+  --border: rgba(59, 94, 91, 0.5);
+  --shadow: rgba(36, 132, 124, 0.3);
+  /*Header*/
+  --background-header: #1e4240;
+  --color-theme-toggle: #ffffff;
+  /*Nav*/
+  --color-text-nav-link: #ffffff;
+  /*Footer*/
+  --background-footer: #131f1e;
+  /*dollar-page*/
+  --background-card-prices: rgba(0, 82, 75, 0.3);
+  --background-live-dot: #ffffff;
+  --color-text-live-dot: #25857d;
+  --color-value-card: #ffffff;
+  --background-positive-variation: #ffffff;
+  --background-negative-variation: rgba(231, 76, 60, 0.15);
+  --color-text-positive-variation: #25857d;
+  --color-text-negative-variation: #e74c3c;
+
+  /*forms*/
+  --background-form: rgba(0, 82, 75, 0.3);
+  --background-select: #ffffff;
+  --color-text-select: #000000;
+  --background-result: rgba(50, 252, 225, 0.15);
+  --color-text-result: #ffffff;
 }
